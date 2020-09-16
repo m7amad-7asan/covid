@@ -1,0 +1,6 @@
+{ 
+    "extends": "react-ratebseirawan",
+    "rules": {
+        "@typescript-eslint/no-use-before-define": 0
+    }
+}
