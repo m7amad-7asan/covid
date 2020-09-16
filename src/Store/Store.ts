@@ -12,12 +12,12 @@ export const userSlice = createSlice({
   name: 'main',
   initialState: initState,
   reducers: {},
-  extraReducers: {
-    [getStatistics.fulfilled.toString()]: (state, action) => {
-      state.statistics = action.payload;
-    },
-    [countriesStatistics.fulfilled.toString()]: (state, action) => {
-      state.countries = action.payload;
-    },
+  extraReducers: (builder) => {
+    builder.addCase(getStatistics.fulfilled, (state, {payload}) => {
+      state.statistics = payload;
+    });
+    builder.addCase(countriesStatistics.fulfilled, (state, {payload}) => {
+      state.countries = payload;
+    });
   },
 });

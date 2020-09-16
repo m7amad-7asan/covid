@@ -107,12 +107,20 @@ const Countries: React.FC = () => {
                 <AccordionIcon />
               </AccordionHeader>
               <AccordionPanel pb={4} display="flex" flexWrap="wrap" textAlign="center">
-                <Statistics name="Total Cases" count={country.cases} boxStyling={BOXSTYLE} />
-                <Statistics name="Today Cases" count={country.todayCases} boxStyling={BOXSTYLE} />
-                <Statistics name="Total Deaths" count={country.deaths} boxStyling={BOXSTYLE} />
-                <Statistics name="Today Deaths" count={country.todayDeaths} boxStyling={BOXSTYLE} />
-                <Statistics name="Active Cases" count={country.active} boxStyling={BOXSTYLE} />
-                <Statistics name="Critical Cases" count={country.critical} boxStyling={BOXSTYLE} />
+                {[
+                  {name: 'Total Cases', count: country.cases},
+                  {name: 'Today Deaths', count: country.todayCases},
+                  {name: 'Total Deaths', count: country.deaths},
+                  {name: 'Today Deaths', count: country.todayDeaths},
+                  {name: 'Active Cases', count: country.active},
+                  {name: 'Critical Cases', count: country.critical},
+                ].map((item, statsindex) => (
+                  <Statistics
+                    key={`country-statistic-${statsindex}`}
+                    {...item}
+                    boxStyling={BOXSTYLE}
+                  />
+                ))}
               </AccordionPanel>
             </AccordionItem>
           ))}

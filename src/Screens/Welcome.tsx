@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useCallback} from 'react';
 import {Box, Button, Text, Icon} from '@chakra-ui/core';
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
@@ -31,9 +31,9 @@ const Welcome: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const ShowCountries = () => {
+  const ShowCountries = useCallback(() => {
     history.push('/countries');
-  };
+  }, [history]);
 
   useEffect(() => {
     dispatch(getStatistics());
@@ -54,48 +54,23 @@ const Welcome: React.FC = () => {
           height="50vh"
           justifyContent="space-around"
           alignItems="flex-end">
-          <Statistics
-            name="Total Cases"
-            count={apiStatisctis?.cases}
-            boxStyling={BOXSTYLE}
-            titleStyling={TITLESTYLE}
-            descriptionStyling={DESCRIPTIONSTYLE}
-          />
-          <Statistics
-            name="Today Cases"
-            count={apiStatisctis?.todayCases}
-            boxStyling={BOXSTYLE}
-            titleStyling={TITLESTYLE}
-            descriptionStyling={DESCRIPTIONSTYLE}
-          />
-          <Statistics
-            name="Deaths"
-            count={apiStatisctis?.deaths}
-            boxStyling={BOXSTYLE}
-            titleStyling={TITLESTYLE}
-            descriptionStyling={DESCRIPTIONSTYLE}
-          />
-          <Statistics
-            name="Today Deaths"
-            count={apiStatisctis?.todayDeaths}
-            boxStyling={BOXSTYLE}
-            titleStyling={TITLESTYLE}
-            descriptionStyling={DESCRIPTIONSTYLE}
-          />
-          <Statistics
-            name="Active Cases"
-            count={apiStatisctis?.active}
-            boxStyling={BOXSTYLE}
-            titleStyling={TITLESTYLE}
-            descriptionStyling={DESCRIPTIONSTYLE}
-          />
-          <Statistics
-            name="Critical Cases"
-            count={apiStatisctis?.critical}
-            boxStyling={BOXSTYLE}
-            titleStyling={TITLESTYLE}
-            descriptionStyling={DESCRIPTIONSTYLE}
-          />
+          {[
+            {name: 'Total Cases', numberOf: apiStatisctis?.cases},
+            {name: 'Today Cases', numberOf: apiStatisctis?.todayCases},
+            {name: 'Total Deaths', numberOf: apiStatisctis?.deaths},
+            {name: 'Today Deaths', numberOf: apiStatisctis?.todayDeaths},
+            {name: 'Active Cases', numberOf: apiStatisctis?.active},
+            {name: 'Critical Cases', numberOf: apiStatisctis?.critical},
+          ].map((item, statsindex) => (
+            <Statistics
+              key={`statistic-${statsindex}`}
+              name={item.name}
+              count={item.numberOf}
+              boxStyling={BOXSTYLE}
+              titleStyling={TITLESTYLE}
+              descriptionStyling={DESCRIPTIONSTYLE}
+            />
+          ))}
         </Box>
 
         <Button position="fixed" right="25px" bottom="25px" onClick={ShowCountries}>

@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const instance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: 'https://corona.lmao.ninja/v2',
 });
-
-export default instance;
