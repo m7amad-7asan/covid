@@ -1,6 +1,6 @@
 import {axiosInstance} from './axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {StatisticsResponse} from '../Models/model';
+import {CountriesStatisticsResponse, StatisticsResponse} from '../Models/model';
 
 const statisticsAPI = {
   get: (): Promise<StatisticsResponse> =>
@@ -13,7 +13,8 @@ export const getStatistics = createAsyncThunk('main/statistics', async () => {
 });
 
 const countriesStatisticsAPI = {
-  get: () => axiosInstance.get('/countries?sort=country').then((response) => response.data),
+  get: (): Promise<CountriesStatisticsResponse> =>
+    axiosInstance.get('/countries?sort=country').then((response) => response.data),
 };
 export const countriesStatistics = createAsyncThunk('main/countries', async () => {
   const responseData = await countriesStatisticsAPI.get();

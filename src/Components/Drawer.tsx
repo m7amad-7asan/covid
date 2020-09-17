@@ -1,4 +1,4 @@
-import React, {useRef, useContext, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Drawer,
   DrawerBody,
@@ -21,7 +21,6 @@ const CustomDrawer: React.FC = () => {
   const {bg, color, setTheme} = useContext(ThemeContext);
 
   const {isOpen, onOpen, onClose} = useDisclosure();
-  const btnRef = useRef();
 
   const changeColor = (theme: {bg: string; color: string}) => {
     setChoosenBg(theme.bg);
@@ -34,7 +33,7 @@ const CustomDrawer: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Button ref={btnRef} onClick={onOpen} position="fixed" left="0px" top="0px">
+      <Button onClick={onOpen} position="fixed" left="0px" top="0px">
         <Icon name="arrow-right" />
       </Button>
 
